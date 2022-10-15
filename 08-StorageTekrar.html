@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Local Storage - SessionStorage</title>
+</head>
+
+<body>
+    <form id="frmZiyaretci">
+        <label for="ad">Adınız:</label>
+        <input type="text" id="ad" required>
+        <button>Beni Hatırla</button>
+    </form>
+
+    <h1 id="hosgeldin">Merhaba <span id="ziyaretci"></span>, Hoşgeldin! <button id="unut">Beni Unut</button></h1>
+
+
+    <script>
+        let frm = document.getElementById("frmZiyaretci");
+        let txtAd = document.getElementById("ad");
+        let spnZiyaretci = document.getElementById("ziyaretci");
+        let h1Hosgeldin = document.getElementById("hosgeldin");
+        let linkUnut = document.getElementById("unut");
+
+
+
+
+        //kayıtlı ad varsa hoşgeldin, yoksa adını soran form 
+        if (localStorage["isim"]) {
+            hosgeldin();
+        }
+        else {
+            formuGoster();
+        }
+
+        function hosgeldin() {
+            spnZiyaretci.textContent = localStorage["isim"];
+            // "block ifadesi o nesneyi göster demek, "none" gösterme anlamına geliyor."
+            frm.style.display = "none";
+            h1Hosgeldin.style.display = "block";
+        }
+
+        function formuGoster() {
+            h1Hosgeldin.style.display = "none";
+            frm.style.display = "block";
+        }
+
+        linkUnut.onclick = function () {
+            localStorage.removeItem("isim"); //localStorage dan ögeyi siler.
+            formuGoster();
+        }
+
+
+
+        frm.onsubmit = function (event) {
+            event.preventDefault();
+            let ad = txtAd.value.trim();
+
+            //ad eğer "" ise false gibi, değilse true gibi davranır.
+            if (ad) {
+                kaydet(ad);
+            }
+        };
+
+        function kaydet(ad) {
+            localStorage["isim"] = ad;
+            hosgeldin();
+            //window.open("08-StorageTekrar.html", "_blank");
+        }
+
+
+
+    </script>
+</body>
+
+</html>
+
+<!-- https://developer.mozilla.org/en-US/docs/Glossary/Falsy -->
+
+<!-- https://developer.mozilla.org/en-US/docs/Glossary/Truthy -->

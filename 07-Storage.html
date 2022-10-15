@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kura Çekimi</title>
+    <style>
+        html,
+        input,
+        button {
+            font-size: 24px;
+        }
+
+        body,
+        input,
+        button {
+            background-color: black;
+            color: white;
+        }
+
+        input,
+        button {
+            border: 2px solid green;
+        }
+
+        button {
+            background-color: #337133;
+        }
+
+        ul#adlar {
+            list-style: none;
+            padding-left: 0;
+            max-width: 400px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        ul#adlar>li {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ul#adlar>li:nth-child(odd) {
+            background-color: rgba(0, 255, 0, .1);
+        }
+
+        ul#adlar>li:nth-child(even) {
+            background-color: rgba(0, 255, 0, .3);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Kura Çekimi</h1>
+    <form id="frmEkle">
+        <label for="ad">Ad</label>
+        <input type="text" id="ad" required>
+        <button>Ekle</button>
+    </form>
+    <ul id="adlar"></ul>
+
+    <script>
+        let adlar = [];
+        let ulAdlar = document.getElementById("adlar");
+        let txtAd = document.getElementById("ad");
+        let frmEkle = document.getElementById("frmEkle");
+
+        //Formun onsubmit eventi tetiklendiğinde adEkle metodu çağrılır.
+        frmEkle.onsubmit = adEkle;
+
+        function adEkle(event) {
+            event.preventDefault(); // formun teslim edilmesini önler.
+            // alert("form teslim edilmeye çalışıldı.")
+            adlar.push(txtAd.value);
+            txtAd.Value = "";
+            listele();
+        }
+
+        function adSil(event) {
+            adlar.splice(this.adIndeks, 1);
+            listele();
+        }
+
+        function kaydet() {                           //F12 -> Application -> Local Storage adımlarıyla görebilirz.
+            let json = JSON.stringify(adlar);
+            localStorage["veri"] = json;
+        }
+
+        function yukle() {
+            if (localStorage["veri"]) {
+                let json = localStorage["veri"];
+                adlar = JSON.parse(json);
+            }
+        }
+
+        function listele() {
+            kaydet();
+            ulAdlar.innerHTML = "";  // tekrar tekrar tüm adları eklememesi için her ekleme yapıldığında listeyi temizliyoruz.
+
+            for (let i = 0; i < adlar.length; i++) {
+                const ad = adlar[i];
+                let li = document.createElement("li");
+                li.textContent = ad;
+                let btn = document.createElement("button");
+                btn.adIndeks = i;
+                btn.onclick = adSil;  // butona tıklayınca adSil çağır.
+                btn.innerHTML = "&times;"
+                li.append(btn);
+                ulAdlar.append(li);
+            }
+        }
+        yukle();
+        listele();
+
+    </script>
+</body>
+
+</html>

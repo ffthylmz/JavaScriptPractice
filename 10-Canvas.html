@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Üzerinde Js İLE Çizim</title>
+    <style>
+        canvas {
+            border: 10px dashed orange;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div>
+        Üçgen Adedi: <span id="lblAdet">2</span>
+        <div>
+            <input type="range" id="adet" min="1" max="100" value="2">
+        </div>
+    </div>
+
+    <script>
+        //GLOBAL DEĞERLER
+        let lblAdet = document.getElementById("lblAdet");
+        let inputAdet = document.getElementById("adet");
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+
+        let ilkUcgen =
+        {
+            a: { x: 100, y: 100 },
+            b: { x: 300, y: 300 },
+            c: { x: 300, y: 100 }
+        };
+
+        function ucgenCiz(ucgen) {
+            ctx.beginPath();
+            ctx.moveTo(ucgen.a.x, ucgen.a.y);
+            ctx.lineTo(ucgen.b.x, ucgen.b.y);
+            ctx.lineTo(ucgen.c.x, ucgen.c.y);
+            ctx.lineTo(ucgen.a.x, ucgen.a.y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function ucgenBoya(ucgen) {
+            ctx.fillStyle = `rgba(${rastgele(256)},${rastgele(256)},${rastgele(256)}, 0.5`;
+            ctx.beginPath();
+            ctx.moveTo(ucgen.a.x, ucgen.a.y);
+            ctx.lineTo(ucgen.b.x, ucgen.b.y);
+            ctx.lineTo(ucgen.c.x, ucgen.c.y);
+            ctx.lineTo(ucgen.a.x, ucgen.a.y);
+            ctx.closePath();
+            ctx.fill();
+        };
+
+        function rastgeleUcgen() {
+            const w = canvas.width, h = canvas.height;
+            return {
+                a: { x: rastgele(w), y: rastgele(h) },
+                b: { x: rastgele(w), y: rastgele(h) },
+                c: { x: rastgele(w), y: rastgele(h) }
+            };
+        }
+
+        function temizle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+        }
+
+        function rastgele(maks) {
+            return Math.floor(Math.random() * maks);
+        }
+
+        inputAdet.oninput = function () {
+            lblAdet.textContent = this.value;
+        }
+
+        setInterval(function () {
+            temizle();
+            for (let i = 0; i < inputAdet.value; i++) {
+                ucgenBoya(rastgeleUcgen());
+            }
+            //ucgenBoya(rastgeleUcgen());
+            //ucgenBoya(rastgeleUcgen());
+        }, 500);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+Stack Overflow
+About
+Products
+For Teams
+Search…
+Join Stack Overflow to find the best answer to your technical question, help others answer theirs.
+
+Home
+PUBLIC
+Questions
+Tags
+Users
+Companies
+COLLECTIVES
+Explore Collectives
+TEAMS
+Stack Overflow for Teams – Start collaborating and sharing organizational knowledge. 
+Get the current year in JavaScript
+Asked 11 years, 5 months ago
+Modified 10 months ago
+Viewed 1.0m times
+
+1412
+
+
+How do I get the current year in JavaScript?
+
+
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram
+Site design / logo © 2022 Stack Exchange Inc; user contributions licensed under CC BY-SA. rev 2022.10.14.26767
